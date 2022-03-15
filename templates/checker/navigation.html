@@ -1,0 +1,14 @@
+<div class="col-sm-3 sidenav">
+  <h4>BankerApp</h4>
+  <ul class="nav nav-pills nav-stacked">
+    <li class="active"><a href="#section1">Home</a></li>
+      {% if not user.is_authenticated %}
+        <li><a href="/accounts/login">Log In</a></li>
+        <li><a href="/accounts/register">Register</a></li>
+      {% else %}
+        <li><a href="/accounts/logout">Log Out</a></li>
+        <li><a href="/api">API</a></li>
+      {% endif %}
+    <li><a href="#section3">TODO</a></li>
+  </ul><br>
+</div>
