@@ -1,0 +1,14 @@
+appka do sprawdzania ofert na roznych portalach aukcyjnych
+- allegro
+- olx
+- erli
+po podaniu urla oferty:
+- task celery wypuszcza crawlera - selenium/scrapy?
+- zbiera dane i prezentuje uzytkownikowi
+- szukanie po nazwie?
+- porownywarka ofert
+
+0. baza potgres/postgres :5432
+1. prosty front
+2. proste taski celery
+
