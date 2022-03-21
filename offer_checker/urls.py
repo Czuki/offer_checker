@@ -20,5 +20,5 @@ import checker.views as checker_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', checker_views.DashboardView.as_view())
+    path('', checker_views.DashboardView.as_view(), name='dashboard'),
 ]
