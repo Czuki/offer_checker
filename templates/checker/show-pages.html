@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'checker/header.html' %}
+<body>
+
+<div class="container-fluid">
+  <div class="row content">
+    {% include 'checker/navigation.html' %}
+
+    <div class="col-sm-9">
+      <h4><small>Section Title</small></h4>
+      <hr>
+      <h2>Title</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <br><br>
+      {% for page in user_pages %}
+      <a href="{{page.page_url}}"> {{page.name}} </a>
+        <br>
+      {% endfor %}
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
