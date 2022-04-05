@@ -1,5 +1,5 @@
 from django.contrib import admin
-from checker.models import OriginSite, UserPage
+from checker.models import OriginSite, CheckerProduct
 
 
 @admin.register(OriginSite)
@@ -7,6 +7,6 @@ class OriginSiteAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(UserPage)
+@admin.register(CheckerProduct)
 class UserPageAdmin(admin.ModelAdmin):
     pass

@@ -35,7 +35,7 @@ class OriginSite(BaseModel):
         return '<{}> {}'.format(self.pk, self.name)
 
 
-class UserPage(BaseModel):
+class CheckerProduct(BaseModel):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -46,7 +46,7 @@ class UserPage(BaseModel):
         on_delete=models.CASCADE,
         verbose_name='Strona źródłowa',
     )
-    page_url = models.CharField(
+    product_url = models.CharField(
         max_length=512,
         verbose_name='Link do produktu',
     )
@@ -57,8 +57,8 @@ class UserPage(BaseModel):
 
     class Meta:
         ordering = ['-id']
-        verbose_name = 'Strona użytkownika'
-        verbose_name_plural = 'Strony użytkownika'
+        verbose_name = 'Produkt do śledzenia'
+        verbose_name_plural = 'Produkty do śledzenia'
 
     def __str__(self):
         return '<{}> {}'.format(self.pk, self.name)
