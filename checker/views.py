@@ -2,21 +2,27 @@ from django.views.generic import TemplateView
 from django.contrib.auth import login
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from checker.tasks import debug_task
+from checker.tasks import update_product_price_task
 from checker.forms import CustomUserCreationForm
 
-from checker.models import UserPage
+from checker.models import CheckerProduct
 
 
 class DashboardView(TemplateView):
 
     template_name = "checker/dashboard.html"
-    # test_task
-    # def get(self, request, *args, **kwargs):
-    #
-    #     debug_task.apply_async()
-    #     return render(request, self.template_name)
+    def get(self, request, *args, **kwargs):
 
+        # update_product_price_task.apply_async(kwargs={'user_page_id': 1})
+        return render(request, self.template_name)
+
+
+class PriceUpdateTask(TemplateView):
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            print(kwargs)
+            update_product_price_task.apply_async(kwargs={'user_product_id': kwargs['pk']})
+        return redirect('show-pages')
 
 class ShowPagesView(TemplateView):
     # strona na ktorej mozna przejrzec aktualne 'strony' uzytkownika i dodac kolejne
@@ -33,7 +39,7 @@ class ShowPagesView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ShowPagesView, self).get_context_data(*args, **kwargs)
-        context['user_pages'] = UserPage.objects.filter(user_id=kwargs['user_id'])
+        context['user_product'] = CheckerProduct.objects.filter(user_id=kwargs['user_id'])
         return context
 
 

@@ -9,6 +9,8 @@ import requests
 from bs4 import BeautifulSoup
 import json
 
+from checker.models import CheckerProduct
+
 @app.task(bind=True)
 def debug_task(self):
 
@@ -32,3 +34,26 @@ def debug_task(self):
     #         needed.append(script)
     driver.quit()
     return 'price'
+
+
+@app.task(bind=True)
+def update_product_price_task(self, user_product_id):
+    options = webdriver.ChromeOptions()
+    # options.add_argument('--headless')
+    # driver = webdriver.Chrome(
+    #     options=options,
+    #     executable_path=r"C:\Users\Bartosz\Desktop\WORKSPACE\offer_checker\chromedriver.exe"
+    # )
+    driver = webdriver.Remote(command_executor='http://localhost:4444', options=options)
+    options.add_argument("--start-maximized")
+
+    try:
+        user_product = CheckerProduct.objects.get(pk=user_product_id)
+        driver.get(user_product.product_url)
+        time.sleep(40)
+        driver.quit()
+    except CheckerProduct.DoesNotExist:
+        return False
+
+
+

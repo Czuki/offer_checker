@@ -10,4 +10,6 @@ urlpatterns = [
 
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/register/', checker_views.UserRegistrationView.as_view(), name='registration'),
+
+    path('tasks/update-price/<int:pk>/', checker_views.PriceUpdateTask.as_view(), name='update-price')
 ]
