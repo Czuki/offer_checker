@@ -10,6 +10,10 @@
         <li><a href="/show-pages">Show Pages</a></li>
         <li><a href="/api">API</a></li>
       {% endif %}
-    <li><a href="#section3">TODO</a></li>
+
+    {% if user.is_staff %}
+      <li><a href="/admin">Admin panel</a></li>
+    {% endif %}
+
   </ul><br>
 </div>

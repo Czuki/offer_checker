@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 {% include 'checker/header.html' %}
-<body>
 
+<body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 <div class="container-fluid">
   <div class="row content">
     {% include 'checker/navigation.html' %}
@@ -13,22 +14,7 @@
       <h2>Title</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 
-  <table class="table table-bordered">
-    <tbody>
-      {% for product in user_product %}
-        <tr>
-          <td><a href="{{product.product_url}}"> {{product.name}} </a></td>
-          <td>{{product.previous_price}}</td>
-          <td>{{product.current_price}} <a href="{% url 'update-price' pk=product.pk %}"> <i class="bi bi-arrow-down-circle"></i> </a></td>
-          {% if product.product_image_url %}
-            <td><img class="img-fluid" style="height: 100px" src="{{product.product_image_url}}"></td>
-          {% else %}
-            <td><a href="{% url 'update-image' pk=product.pk %}"> Zaktualizuj obraz </a></td>
-          {% endif %}
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+        TESST
 
     </div>
   </div>

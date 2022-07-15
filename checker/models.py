@@ -54,6 +54,27 @@ class CheckerProduct(BaseModel):
         max_length=64,
         verbose_name='Nazwa produktu'
     )
+    previous_price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name='Poprzednia cena produktu',
+        null=True, blank=True,
+    )
+    current_price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name='Aktualna cena produktu',
+        null=True, blank=True,
+    )
+    price_change_date = models.DateTimeField(
+        verbose_name='Data zmiany ceny',
+        null=True, blank=True,
+    )
+    product_image_url = models.CharField(
+        max_length=512,
+        verbose_name='Link do zdjęcia produktu',
+        null=True, blank=True,
+    )
 
     class Meta:
         ordering = ['-id']
@@ -62,3 +83,38 @@ class CheckerProduct(BaseModel):
 
     def __str__(self):
         return '<{}> {}'.format(self.pk, self.name)
+
+
+class PriceChangeHistory(BaseModel):
+
+    product = models.ForeignKey(
+        CheckerProduct,
+        on_delete=models.CASCADE,
+        verbose_name='Produkt',
+    )
+    previous_price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name='Poprzednia cena produktu',
+        null=True, blank=True,
+    )
+    new_price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name='Nowa cena produktu',
+        null=True, blank=True,
+    )
+    price_difference = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name='Różnica w cenie',
+        null=True, blank=True,
+    )
+
+    class Meta:
+        ordering = ['-id']
+        verbose_name = 'Historia zmian cen'
+        verbose_name_plural = 'Historia zmian cen'
+
+    def __str__(self):
+        return 'PriceDifference {}'.format(self.price_difference)

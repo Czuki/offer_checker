@@ -9,7 +9,10 @@ urlpatterns = [
     path('show-pages/', checker_views.ShowPagesView.as_view(), name='show-pages'),
 
     path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/register/', checker_views.UserRegistrationView.as_view(), name='registration'),
+    path('accounts/register/', checker_views.UserRegistrationView.as_view(), name='registration'),\
 
-    path('tasks/update-price/<int:pk>/', checker_views.PriceUpdateTask.as_view(), name='update-price')
+    path('price-change/report/', checker_views.PriceChangeHistoryView.as_view(), name='report'),
+
+    path('tasks/update-price/<int:pk>/', checker_views.PriceUpdateTask.as_view(), name='update-price'),
+    path('tasks/update-image/<int:pk>/', checker_views.ImageUpdateTask.as_view(), name='update-image')
 ]
