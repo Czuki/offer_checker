@@ -15,3 +15,9 @@ class UserPageAdmin(admin.ModelAdmin):
 @admin.register(models.PriceChangeHistory)
 class UserPageAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(models.SiteSelector)
+class UserPageAdmin(admin.ModelAdmin):
+    pass
+

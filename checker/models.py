@@ -16,6 +16,32 @@ class BaseModel(models.Model):
         abstract = True
 
 
+class SiteSelector(BaseModel):
+    price_selector_xpath = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name='Selektor cen xpath'
+    )
+    image_selector_xpath = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name='Selektor obrazu xpath'
+    )
+    price_selector_css = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name='Selektor cen css'
+    )
+    image_selector_css = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name='Selektor obrazu css'
+    )
+
+    def __str__(self):
+        return 'Site Selector {}'.format(self.pk)
+
+
 class OriginSite(BaseModel):
     name = models.CharField(
         max_length=32,
@@ -24,6 +50,13 @@ class OriginSite(BaseModel):
     main_url = models.CharField(
         max_length=256,
         verbose_name='Strona główna',
+    )
+    site_selector = models.ForeignKey(
+        'SiteSelector',
+        on_delete=models.CASCADE,
+        verbose_name='Selektory strony',
+        blank=True,
+        null=True
     )
 
     class Meta:
