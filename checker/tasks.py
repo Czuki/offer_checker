@@ -4,9 +4,21 @@ from offer_checker.celery import app
 from requests_html import HTMLSession
 from checker.models import CheckerProduct, PriceChangeHistory
 
+
 import logging
 
 log = logging.getLogger(__name__)
+
+
+@app.task(bind=True)
+def send_price_change_notification(self, user_product_name, user_product_url, price_diff, email):
+    from checker.mailer import Mailer
+    Mailer().send_notification(
+        user_product_name=user_product_name,
+        user_product_url=user_product_url,
+        price_diff=price_diff,
+        user_mail=email
+    )
 
 
 @app.task(bind=True)
@@ -26,8 +38,20 @@ def update_product_price_requests_task(self, user_product_id):
 
     user_product.save()
 
+    user_product.refresh_from_db()
+
     if user_product.previous_price:
-        price_diff = float(user_product.current_price) - float(user_product.previous_price)
+        price_diff = user_product.previous_price - user_product.current_price
+        if price_diff > 0:
+            send_price_change_notification.apply_async(
+                kwargs={
+                    'user_product_name': user_product.name,
+                    'user_product_url': user_product.product_url,
+                    'price_diff': price_diff,
+                    'email': user_product.user.email
+                }
+            )
+
         PriceChangeHistory.objects.create(
             product=user_product,
             previous_price=user_product.previous_price,
