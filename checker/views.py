@@ -2,7 +2,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth import login
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from checker.tasks import update_product_price_task, update_product_image_task
+from checker.tasks import update_product_price_requests_task, update_product_image_requests_task
 from checker.forms import CustomUserCreationForm
 from checker.models import CheckerProduct, PriceChangeHistory
 
@@ -19,14 +19,14 @@ class DashboardView(TemplateView):
 class PriceUpdateTask(TemplateView):
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            update_product_price_task.apply_async(kwargs={'user_product_id': kwargs['pk']})
+            update_product_price_requests_task.apply_async(kwargs={'user_product_id': kwargs['pk']})
         return redirect('show-pages')
 
 
 class ImageUpdateTask(TemplateView):
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            update_product_image_task.apply_async(kwargs={'user_product_id': kwargs['pk']})
+            update_product_image_requests_task.apply_async(kwargs={'user_product_id': kwargs['pk']})
         return redirect('show-pages')
 
 
