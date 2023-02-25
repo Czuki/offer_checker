@@ -1,3 +1,9 @@
+In this app you can add item that you are interested to buy. 
+With help of celery and django periodic tasks, 
+app will periodically send a bot to specified site of a product, to get fresh information about price,
+if price has changed, user will receive email notification.
+
+
 # offer_checker
 
 `python3 -m venv venv`
