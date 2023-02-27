@@ -43,6 +43,15 @@ class SiteSelector(BaseModel):
 
 
 class OriginSite(BaseModel):
+
+    PLAYWRIGHT_ENGINE = 'P'
+    REQUESTS_HTML_ENGINE = 'R'
+
+    ENGINE_CHOICES = (
+        (PLAYWRIGHT_ENGINE, 'PLAYWRIGHT',),
+        (REQUESTS_HTML_ENGINE, 'REQUESTS_HTML',)
+    )
+
     name = models.CharField(
         max_length=32,
         verbose_name='Nazwa',
@@ -57,6 +66,11 @@ class OriginSite(BaseModel):
         verbose_name='Selektory strony',
         blank=True,
         null=True
+    )
+    scraping_engine = models.CharField(
+        max_length=32,
+        choices=ENGINE_CHOICES,
+        default='R'
     )
 
     class Meta:
