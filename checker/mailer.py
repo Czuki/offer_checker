@@ -14,5 +14,3 @@ class Mailer:
             [user_mail],
             fail_silently=False,
         )
-
-
