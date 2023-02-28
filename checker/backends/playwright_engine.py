@@ -5,8 +5,9 @@ class PlaywrightEngine:
     # TODO(Getting random user agent from external file)
     # TODO(Figure out better way to handle sync_playwright context manager)
 
-    def __init__(self, user_product):
+    def __init__(self, user_product, site_mixin):
         self.user_product = user_product
+        self.site_mixin = site_mixin
 
     def get_price(self, selector):
         with sync_playwright() as p:
@@ -17,7 +18,7 @@ class PlaywrightEngine:
             page.goto(self.user_product.product_url)
             locator = 'xpath={}'.format(selector)
             element = page.locator(locator)
-            price = element.get_attribute('content')
+            price = self.site_mixin.extract_price(element)
             browser.close()
         return price
 
@@ -30,6 +31,6 @@ class PlaywrightEngine:
             page.goto(self.user_product.product_url)
             locator = 'xpath={}'.format(selector)
             element = page.locator(locator)
-            image = element.get_attribute('content')
+            image = self.site_mixin.extract_image(element)
             browser.close()
         return image

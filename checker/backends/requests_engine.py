@@ -6,8 +6,9 @@ class RequestsEngine:
     _session = None
     _response = None
 
-    def __init__(self, user_product):
+    def __init__(self, user_product, site_mixin):
         self.user_product = user_product
+        self.site_mixin = site_mixin
 
     @property
     def session(self):
@@ -29,8 +30,8 @@ class RequestsEngine:
 
     def get_price(self, selector):
         element = self.get_element(selector)
-        return element[0].attrs['content']
+        return self.site_mixin.extract_price(element)
 
     def get_image(self, selector):
         element = self.get_element(selector)
-        return element[0].attrs['content']
+        return self.site_mixin.extract_image(element)

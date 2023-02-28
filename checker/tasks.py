@@ -1,4 +1,4 @@
-import datetime
+from django.utils import timezone
 
 from offer_checker.celery import app
 from checker.models import CheckerProduct, PriceChangeHistory
@@ -29,7 +29,7 @@ def update_product_price_requests_task(self, user_product_id):
     user_product.current_price = current_price
 
     if user_product.previous_price != user_product.current_price:
-        user_product.price_change_date = datetime.datetime.now()
+        user_product.price_change_date = timezone.now()
 
     user_product.save()
     user_product.refresh_from_db()
@@ -52,6 +52,7 @@ def update_product_price_requests_task(self, user_product_id):
             new_price=user_product.current_price,
             price_difference=price_diff,
         )
+    return 'Extracted price: {}'.format(current_price)
 
 
 @app.task(bind=True)
@@ -61,3 +62,6 @@ def update_product_image_requests_task(self, user_product_id):
 
     user_product.product_image_url = image_src
     user_product.save()
+
+    return 'Extracted image: {}'.format(image_src)
+

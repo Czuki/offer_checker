@@ -11,7 +11,6 @@ class DashboardView(TemplateView):
 
     template_name = "checker/dashboard.html"
     def get(self, request, *args, **kwargs):
-
         # update_product_price_task.apply_async(kwargs={'user_page_id': 1})
         return render(request, self.template_name)
 
